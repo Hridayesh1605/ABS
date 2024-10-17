@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
 from django.views.generic import FormView,CreateView,UpdateView
-from .models import UserForm,App_User,ExtraUserDetForm,ExtraUserDet,Image,ImageForm,Designation,AmbulanceForm,BookForm,Book,Ambulance,Accepted_rides
+from .models import UserForm,App_User,ExtraUserDetForm,ExtraUserDet,Image,ImageForm,Designation,AmbulanceForm,BookForm,Book,Ambulance,Accepted_rides,Finished_rides
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 # from django.contrib.auth.models import User
 
 # Create your views here.
@@ -301,6 +302,10 @@ def staffH(request):
     
 
     staff = user.f_name
+    amb_no = Ambulance.objects.filter(Q(doctor=staff) | Q(cleaner=staff) | Q(driver=staff))
+    for amb_nos in amb_no:
+        ambulance_plate_no = amb_nos.ambulance_plate
+    
 
     active_ride = Accepted_rides.objects.filter(accepted_by=staff).exists()
 
@@ -311,6 +316,7 @@ def staffH(request):
     
 
     print(active_ride)
+    print(ambulance_plate_no)
 
     if active_ride == True:
         ongoing = Accepted_rides.objects.get(accepted_by=staff)
@@ -318,7 +324,7 @@ def staffH(request):
         context = {'active_form':ongoing,'user':user}
     else:
         print('asdfghjk')
-        f=Book.objects.all()
+        f=Book.objects.filter(ambulance_plate=ambulance_plate_no)
         context={'form':f,'user':user}
 
     if uid is not None:
@@ -430,11 +436,13 @@ def book(request,id3):
     uid1 = request.session.get('uid')
     print(uid1)
     app_u = App_User.objects.get(id=uid1)
+    ambulance=Ambulance.objects.get(ambulance_id=id3)
     # print(app_u)
     user_id = app_u.id
     # print(user_id)
     extra = ExtraUserDet.objects.get(user_id=user_id)
     if request.method == "POST":
+        ambulance_plate=ambulance.ambulance_plate
         username = app_u.username
         email = app_u.email
         contact = app_u.contact
@@ -444,6 +452,7 @@ def book(request,id3):
         address = request.POST['address']
 
         e=Book()
+        e.ambulance_plate=ambulance_plate
         e.username = username
         e.email = email
         e.contact = contact
@@ -506,7 +515,28 @@ def accept_ride(request,id4):
 
 def finish_ride(request,id5):
     uid1 = request.session.get('uid')
+    
+
     ride = Accepted_rides.objects.get(id=id5)
+    staff = ride.accepted_by
+    plate_no = Ambulance.objects.get(Q(doctor=staff) | Q(cleaner=staff) | Q(driver=staff))
+    username = ride.username
+    contact= ride.contact
+    ambulance_plate = plate_no.ambulance_plate
+    doctor = plate_no.doctor
+    driver = plate_no.driver
+    cleaner = plate_no.cleaner
+    address = ride.address
+    e=Finished_rides()
+    e.username=username
+    e.contact=contact
+    e.ambulance_plate=ambulance_plate
+    e.doctor=doctor
+    e.driver=driver
+    e.cleaner=cleaner
+    e.address=address
+    e.save()
+    
     ride.delete()
     return redirect('/staff_home')
 
