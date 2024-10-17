@@ -1,0 +1,117 @@
+
+
+{%load static%}
+<link rel="stylesheet" href="{%static 'css/bmin.css'%}">
+<link rel="stylesheet" href="{%static 'css/register.css'%}">
+
+<div class="container-fluid login-div">
+  
+  <div class="heading">
+    <h1>Edit</h1>
+  </div>
+  <form action="" method="post">
+    {%csrf_token%}
+    <!-- {{form.name}} -->
+
+    <div class="name">
+      <div class="form-group">
+        {{form.f_name.label_tag}}
+        {{form.f_name}}
+
+      </div>
+      <div class="form-group">
+        {{form.m_name.label_tag}}
+        {{form.m_name}}
+
+      </div>
+      <div class="form-group">
+        {{form.l_name.label_tag}}
+        {{form.l_name}}
+
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      {{form.username.label_tag}}
+      {{form.username}}
+      <div class="hide">
+        <ul>
+          <li id="first">Username should be 8-15 characters long</li>
+          <li id="second">Username should contain only letters and numbers</li>
+          <li id="third">Username should not contain spaces</li>
+          <li id="fourth">Username should not contain special characters</li>
+
+        </ul>
+      </div>
+
+      
+      
+
+
+    </div>
+    <div class="form-group">
+      {{form.email.label_tag}}
+      {{form.email}}
+      <div class="hide-email">
+        <ul>
+          <li id="email_first">Enter Valid email address</li>
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{form.age.label_tag}}
+      {{form.age}}
+      <div class="hide-email">
+        <ul>
+          <li id="email_first">Enter Age</li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="form-group">
+      {{form.contact.label_tag}}
+      {{form.contact}}
+
+      
+      <div class="hide-cont">
+        <ul>
+          <li id="contact_first">Enter Valid contact number</li>
+
+        </ul>
+      </div>
+      
+    </div>
+    
+    <div class="SU text-white">
+      Already have Account <a href="register">Sign In</a>
+
+    </div>
+    <a href="login">
+      <button type="submit" class="btn btn-primary my-2">Submit</button>
+
+    </a>
+
+
+    <!-- {{form.as_p}} -->
+
+    
+
+
+  </form>
+  {% if form.errors %}
+      <ul class="error-ul">
+        {% for field in form %}
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+  
+
+</div>
+<script src="{%static 'js/register.js'%}"></script>

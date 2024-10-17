@@ -1,0 +1,22 @@
+.login-div{
+    /* width: 40%; */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #023047;
+    flex-direction: column;
+}
+h1{
+    color: white;
+}
+form{
+    
+    width: 40%;
+}
+label{
+    color: white;
+}
+button{
+    margin-left: auto;
+}

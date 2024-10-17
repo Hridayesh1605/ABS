@@ -1,0 +1,40 @@
+{%extends 'userNavbar.html'%}
+{%block body%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<form action="" method="post" style="display: flex;justify-content: center;align-items: center;height: 100vh;">
+  {%csrf_token%}
+  <table>
+    <div class="form-group">
+      <label for="from">From:</label>
+      <input type="text" style="width: 100px;" id="long" name="longitude">
+      <input type="text" style="width: 100px;" id="lat" name="latitude">
+      <button type="button" class="btn-danger" id="locate" style="width: 30px; height: 30px;color: white;background-color: red;"><i class="fa-solid fa-location-dot"></i></button>
+    </div>
+    <div class="form-group" style="margin-top: 10px;">
+      {{form.address.label_tag}}
+      {{form.address}}
+
+
+    </div>
+    <tr>
+      <input type="submit" value="submit">
+    </tr>
+  </table>
+</form>
+
+<script>
+  const button = document.getElementById("locate")
+  const long = document.getElementById("long")
+  const lat = document.getElementById("lat")
+    button.addEventListener("click", () => {
+        navigator.geolocation.getCurrentPosition(position => {
+            const { latitude,longitude } = position.coords;
+            console.log(longitude)
+            console.log(latitude)
+            long.value=longitude
+            lat.value=latitude
+        })
+    })
+</script>
+
+{%endblock%}

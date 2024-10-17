@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+.pieChart{
+    /* float: right; */
+    margin-right: 20px;
+    border-left: solid 1px black;
+    padding-left: 20px;
+}
+
+
+.user-image{
+    position: absolute;
+    right: 0;
+}
+.card{
+    height: 150px;
+}
+.card-title {
+    margin-bottom: -0.5rem !important;
+}
+.u{
+    border-left: 5px solid red !important;
+}
+.staff{
+    border-left: 5px solid blue !important;
+}
+.ambulance{
+    border-left: 5px solid green !important;
+}
+.row{
+    margin-bottom: 40px !important;
+}

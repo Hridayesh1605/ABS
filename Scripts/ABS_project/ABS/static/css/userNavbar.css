@@ -1,0 +1,13 @@
+.navbar{
+    width: 100%;
+}
+.right-nav{
+    position: absolute;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    /* top: 500px; */
+    right: 30px;
+
+}

@@ -1,0 +1,194 @@
+body{
+    background-color: #023047;
+
+}
+
+.login-div{
+    /* width: 40%; */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    flex-direction: column;
+}
+h1{
+    color: white;
+}
+/* form{
+    
+    width: 40%;
+} */
+label{
+    color: white;
+}
+button{
+    margin-left: auto;
+}
+.form-group{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+/* .group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} */
+
+.form-group input{
+    /* position: relative; */
+    width: 60%;
+    
+}
+form{
+    position: relative;
+    width: 40%;
+}
+i{
+    position: absolute;
+    right: 2px;
+    /* top: 5px; */
+    color: red;
+    visibility: hidden;
+}
+
+.name .form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.name{
+    display: flex;
+}
+
+
+
+
+.hide{
+    font-size: 12px;
+    display: none;
+    color: red;
+    position: absolute;
+    right: -300px;
+    transition: 1s all linear;
+    background-color: white;
+    border-radius: 10px;
+    opacity: 0.6;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: -20px;
+    padding-bottom: 0px;
+}
+.hide-email{
+    font-size: 12px;
+    display: none;
+    color: red;
+    position: absolute;
+    right: -200px;
+    transition: 1s all linear;
+    background-color: white;
+    border-radius: 10px;
+    opacity: 0.6;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: -20px;
+    padding-bottom: 0px;
+}
+.hide-cont{
+    font-size: 12px;
+    display: none;
+    color: red;
+    position: absolute;
+    right: -200px;
+    transition: 1s all linear;
+    background-color: white;
+    border-radius: 10px;
+    opacity: 0.6;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: -20px;
+    padding-bottom: 0px;
+}
+
+.hide-pass{
+    font-size: 12px;
+    display: none;
+    color: red;
+    position: absolute;
+    right: -300px;
+    transition: 1s all linear;
+    background-color: white;
+    border-radius: 10px;
+    opacity: 0.6;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: -20px;
+    padding-bottom: 0px;
+}
+.hide-cpass{
+    font-size: 12px;
+    display: none;
+    color: red;
+    position: absolute;
+    right: -200px;
+    transition: 1s all linear;
+    background-color: white;
+    border-radius: 10px;
+    opacity: 0.6;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: -20px;
+    padding-bottom: 0px;
+}
+.hide ul{
+    margin-left: -20px;
+}
+.hide-email ul{
+    margin-left: -20px;
+}
+.hide-cont ul{
+    margin-left: -20px;
+}
+.hide-pass ul{
+    margin-left: -20px;
+}
+.hide-cpass ul{
+    margin-left: -20px;
+}
+
+.form-control:hover + .hide{
+    display: block;
+}
+.form-control:hover + .hide-email{
+    display: block;
+}
+.form-control:hover + .hide-cont{
+    display: block;
+}
+.form-control:hover + .hide-pass{
+    display: block;
+}
+.form-control:hover + .hide-cpass{
+    display: block;
+}
+
+ul li{
+    color: red;
+    /* position: absolute; */
+    /* list-style: none; */
+    font-size: 12px;
+    font-family: cursive;
+    /* width: 300px; */
+    /* top: 0; */
+}
+ul.error-ul{
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+}
+
+

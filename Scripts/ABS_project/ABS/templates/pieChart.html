@@ -1,0 +1,31 @@
+{%load static%}
+<link rel="stylesheet" href="{%static 'css/pieChart.css'%}">
+
+<div>
+    <canvas id="myChart" style="display: block;box-sizing: border-box;height: 500px;width: 500px;"></canvas>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: {{labels|safe}},
+        datasets: [{
+          label: 'users',
+          data: {{data|safe}},
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>

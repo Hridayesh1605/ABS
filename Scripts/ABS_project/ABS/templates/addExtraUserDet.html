@@ -1,0 +1,32 @@
+{%extends 'userNavbar.html'%}
+{%load static%}
+
+
+{%block body%}
+<link rel="stylesheet" href="{%static 'css/bmin.css'%}">
+
+<div class="container-fluid info-div">
+
+    <div class="heading text-white">
+        <h1>Add Extra Info</h1>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="form-group">
+            {{form.Addhar.label_tag}}
+            {{form.Addhar}}
+        </div>
+        <div class="form-group">
+            {{form.Pan.label_tag}}
+            {{form.Pan}}
+        </div>
+        <div class="form-group text-white">
+            {{img.image.label_tag}}
+            {{img.image}}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+{%endblock%}

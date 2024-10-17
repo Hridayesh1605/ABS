@@ -1,0 +1,123 @@
+{%load static%}
+<link rel="stylesheet" href="{%static 'css/bmin.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">ABS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="staff_home">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+    </ul>
+  </div>
+  <a class="navbar-brand" href="signOut">Signout</a>
+
+</nav>
+
+
+
+
+<h1>Welcome {{user.f_name}}!!</h1>
+{% if active_form%}
+<h3>Active Rides</h3>
+<span>Finish the ride</span>
+<table class="table">
+  <tr>
+    <th>Booking Id</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Contact No.</th>
+    <th>AAdhar No.</th>
+    <th>Address</th>
+    <th colspan="3">Action</th>
+
+  </tr>
+
+  <tr>
+    <td>{{active_form.id}}</td>
+    <td>{{active_form.username}}</td>
+    <td>{{active_form.email}}</td>
+    <td>{{active_form.contact}}</td>
+    <td>{{active_form.Addhar}}</td>
+    <td>{{active_form.address}}</td>
+    <td><button type="button" class="btn btn-danger" id="locate"><i
+            class="fa-solid fa-location-dot"></i></button></td>
+            <td><a href="finish_ride/{{active_form.id}}"><button type="button" class="btn btn-success"><i class="fa-solid fa-stop"></i></button></a></td>
+
+  </tr>
+  <tr>
+    <td colspan="7">
+      <div id="map" style="height: 300;"></div>
+    </td>
+
+
+  </tr>
+
+
+
+</table>
+<script>
+  const locate1 = document.getElementById("locate")
+
+
+  locate1.addEventListener("click", () => {
+    const longitude = "{{active_form.pikup_long|escapejs}}";
+    const latitude = "{{active_form.pikup_lat|escapejs}}";
+    console.log(longitude)
+    console.log(latitude)
+
+    var map = L.map('map').setView([latitude, longitude], 19);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      minZoom: 1,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    L.marker([latitude, longitude]).addTo(map);
+    // console.log(longitude)
+    // console.log(latitude)
+  })
+</script>
+{% else %}
+<h3>Pending Rides</h3>
+
+<table class="table">
+  <tr>
+    <th>Booking Id</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Contact No.</th>
+    <th>AAdhar No.</th>
+    <th>Address</th>
+    <th colspan="3">Action</th>
+  </tr>
+  {%for i in form%}
+  <tr>
+    <td>{{i.id}}</td>
+    <td>{{i.username}}</td>
+    <td>{{i.email}}</td>
+    <td>{{i.contact}}</td>
+    <td>{{i.Addhar}}</td>
+    <td>{{i.address}}</td>
+    <td><button type="button" class="btn btn-success"><a href="accept_ride/{{i.id}}" style="color: white;"><i
+            class="fa-solid fa-check"></i></a></button></td>
+    <td><button type="button" class="btn btn-danger"><a href="delete_rides/{{i.id}}" style="color: white;"><i
+            class="fa-solid fa-xmark"></i></a></button></td>
+    <!-- <td><button class="btn btn-danger"><a href="delete/{{i.id}}">Delete</a></button></td>
+            <td><button class="btn btn-warning"><a href="edit/{{i.id}}">Edit</a></button></td> -->
+  </tr>
+  {%endfor%}
+</table>
+{% endif %}

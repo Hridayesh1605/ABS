@@ -1,0 +1,25 @@
+.ambulance-card{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card{
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 20px !important;
+}
+
+.card img{
+    width: 80%;
+}
+
+.card .btn{
+    bottom: 10% !important;
+}

@@ -1,0 +1,58 @@
+body{
+    background-color: #023047;
+
+}
+
+.login-div{
+    /* width: 40%; */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    flex-direction: column;
+}
+h1{
+    color: white;
+}
+/* form{
+    
+    width: 40%;
+} */
+label{
+    color: white;
+}
+button{
+    margin-left: auto;
+}
+.form-group{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+/* .group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} */
+
+.form-group input{
+    /* position: relative; */
+    width: 60%;
+    
+}
+form{
+    position: relative;
+    width: 40%;
+    
+}
+
+
+/* .form-group{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+} */

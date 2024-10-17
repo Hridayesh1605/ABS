@@ -1,0 +1,28 @@
+{%load static%}
+{%include 'admin-navbar.html'%}
+<link rel="stylesheet" href="{%static 'css/bmin.css'%}">
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Contact No.</th>
+        <th>Password</th>
+        <th>Joined at</th>
+        <th colspan="2">Action</th>
+    </tr>
+    {%for i in ul%}
+    <tr>
+        <td>{{i.f_name}}</td>
+        <td>{{i.username}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.age}}</td>
+        <td>{{i.contact}}</td>
+        <td>{{i.password}}</td>
+        <td>{{i.created}}</td>
+        <td><button class="btn btn-danger"><a href="delete/{{i.id}}">Delete</a></button></td>
+        <td><button class="btn btn-warning"><a href="edit/{{i.id}}">Edit</a></button></td>
+    </tr>
+    {%endfor%}
+</table>

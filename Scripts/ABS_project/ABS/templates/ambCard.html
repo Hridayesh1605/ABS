@@ -1,0 +1,21 @@
+{%extends 'userNavbar.html'%}
+{%load static%}
+{%block body%}
+<link rel="stylesheet" href="{%static 'css/ambCard.css'%}">
+<link rel="stylesheet" href="{%static 'css/bmin.css'%}">
+<div class="ambulance-card">
+
+    {%for i in amb%}
+
+    <div class="card bg-info" style="width: 18rem;margin: 25px;padding: 30px 10px 30px 10px;height: 350px;">
+        <img class="card-img-top" src="{% static 'image/hero.png'%}" alt="Card image cap" width="180px" height="120px">
+        <div class="card-body">
+          <h5 class="card-title">{{i.ambulance_name}}</h5>
+          <p class="card-text" style="text-align: center;">{{i.ambulance_plate}}</p>
+          <a href="book/{{i.ambulance_id}}" class="btn btn-primary" style="text-align: center;">Book</a>
+        </div>
+      </div>
+      {%endfor%}
+      
+</div>
+{%endblock%}

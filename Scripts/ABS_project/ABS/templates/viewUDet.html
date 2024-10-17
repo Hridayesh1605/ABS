@@ -1,0 +1,33 @@
+{%extends 'userNavbar.html'%}
+{%load static%}
+{%block body%}
+<link rel="stylesheet" href="{%static 'css/bmin.css'%}">
+<link rel="stylesheet" href="{%static 'css/viewUDet.css'%}">
+
+<table class="table text-white">
+    <tbody>
+        <tr>
+            <th scope="row">Profile Image</th>
+            <td><img src="../{{img.image}}" alt="problem while rendering" width="100px" height="100px" style="border-radius: 50%;"></td>
+        </tr>
+        <tr>
+            <th scope="row">Name:</th>
+            <td>{{user.f_name}}&nbsp;{{user.m_name}}&nbsp;{{user.l_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">UserName:</th>
+            <td>{{user.username}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Age:</th>
+            <td>{{user.age}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Email:</th>
+            <td>{{user.email}}</td>
+        </tr>
+    
+
+    </tbody>
+</table>
+{%endblock%}
