@@ -198,6 +198,7 @@ class BookForm(ModelForm):
 class Accepted_rides(models.Model):
     accepted_by = models.CharField(max_length=50)
     accepted_at = models.DateTimeField(auto_now_add=True)
+    accepted_booking_id = models.IntegerField()
     username = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     contact = models.IntegerField()
@@ -210,6 +211,7 @@ class Accepted_rides(models.Model):
         db_table = 'Accepted_rides'
 
 class Finished_rides(models.Model):
+
     username=models.CharField(max_length=50)
     contact= models.IntegerField()
     ambulance_plate = models.CharField(max_length=15)
@@ -218,6 +220,7 @@ class Finished_rides(models.Model):
     driver = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     drop_date = models.DateTimeField(auto_now_add=True)
+    booking_id = models.IntegerField()
 
     class Meta:
         db_table = 'Finished_rides'

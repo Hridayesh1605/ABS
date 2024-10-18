@@ -483,7 +483,46 @@ def deleteb(request,id1):
     return redirect('/admin')
 
 def message_after_book(request):
-    return render(request,'message_after_book.html')
+    uid1 = request.session.get('uid')
+
+    user = App_User.objects.get(id=uid1)
+    # print(user.username)
+
+    rides = Accepted_rides.objects.filter(username=user.username)
+
+    # b_id = 0
+
+    for ride in rides:
+        # print(ride.accepted_booking_id)
+        b_id = ride.id
+        # print(b_id)
+
+    if Accepted_rides.objects.filter(username=user.username).exists():
+        
+    
+        status = Accepted_rides.objects.get(id=b_id)
+        context={'acc_ride':status}
+        return render(request,'message_after_book.html',context)
+    else:
+        return render(request,'message_after_book.html')
+
+
+    
+
+
+    
+
+    
+
+    # for ride in rides:
+    #     b_id=ride.accepted_booking_id
+    #     print(b_id)
+
+    # context={'acc_ride':rides}
+
+
+    
+    return render(request,'message_after_book.html',context)
 
 
 def delete_rides(request,id3):
@@ -506,6 +545,7 @@ def accept_ride(request,id4):
 
     ride = Book.objects.get(id=id4)
     e=Accepted_rides()
+    e.accepted_booking_id=ride.id
     e.accepted_by=user.f_name
     e.username = ride.username
     e.email = ride.email
@@ -531,6 +571,7 @@ def finish_ride(request,id5):
     
     staff = ride.accepted_by
     plate_no = Ambulance.objects.get(Q(doctor=staff) | Q(cleaner=staff) | Q(driver=staff))
+
     username = ride.username
     contact= ride.contact
     ambulance_plate = plate_no.ambulance_plate
@@ -539,6 +580,7 @@ def finish_ride(request,id5):
     cleaner = plate_no.cleaner
     address = ride.address
     e=Finished_rides()
+    e.booking_id=ride.accepted_booking_id
     e.username=username
     e.contact=contact
     e.ambulance_plate=ambulance_plate

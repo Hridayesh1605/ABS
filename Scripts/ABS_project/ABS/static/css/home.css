@@ -80,7 +80,7 @@ body{
 }
 .social-media{
     display: flex;
-    /* margin-right: 10px; */
+    /* margin-right: 100px; */
     justify-content: center;
     width: 25%;
 }
