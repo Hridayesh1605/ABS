@@ -1,0 +1,45 @@
+.cont{
+    
+font-size: 33px;
+color: white;
+display:flex;
+flex-direction: row;
+
+}
+.loading-container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    margin-left: 10px;
+  }
+  
+  /* Each dot */
+  .dot {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    animation: bounce 2s infinite ease-in-out;
+  }
+  
+  /* Animation to make the dots bounce */
+  @keyframes bounce {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Apply delays to make the dots appear sequentially */
+  .dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  

@@ -2,7 +2,7 @@
     width: 100%;
 }
 .right-nav{
-    position: absolute;
+    /* position: absolute; */
     display: flex !important;
     justify-content: space-between;
     align-items: center;
