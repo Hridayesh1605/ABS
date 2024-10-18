@@ -496,6 +496,13 @@ def delete_rides(request,id3):
 def accept_ride(request,id4):
     uid1 = request.session.get('uid')
     user = App_User.objects.get(id=uid1)
+    ambulance = Ambulance.objects.filter(Q(doctor=user.f_name) | Q(driver=user.f_name) | Q(cleaner=user.f_name))
+    # ambulance.isActive = True
+    for amb in ambulance:
+        amb.isActive = 1
+        amb.save()
+        # print(amb.isActive,"hello")
+    # print(ambulance.isActive)
 
     ride = Book.objects.get(id=id4)
     e=Accepted_rides()
@@ -510,6 +517,8 @@ def accept_ride(request,id4):
     e.save()
 
     ride.delete()
+
+    
     return redirect('/staff_home')
 
 
@@ -518,6 +527,8 @@ def finish_ride(request,id5):
     
 
     ride = Accepted_rides.objects.get(id=id5)
+    
+    
     staff = ride.accepted_by
     plate_no = Ambulance.objects.get(Q(doctor=staff) | Q(cleaner=staff) | Q(driver=staff))
     username = ride.username
@@ -536,6 +547,12 @@ def finish_ride(request,id5):
     e.cleaner=cleaner
     e.address=address
     e.save()
+
+    ambulance = Ambulance.objects.filter(Q(doctor=staff) | Q(driver=staff) | Q(cleaner=staff))
+    for amb in ambulance:
+        amb.isActive = False
+        amb.save()
+    
     
     ride.delete()
     return redirect('/staff_home')
