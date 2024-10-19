@@ -6,32 +6,48 @@
 
 {% if acc_ride %}
 
-<table class="table" style="margin-top: 90px;color: white;">
-  <tr>
-    <th>Booking Id</th>
-    <th>Username</th>
-    <th>Email</th>
-    <th>Contact No.</th>
-    <th>AAdhar No.</th>
-    <th>Address</th>
-    <th colspan="3">Action</th>
-  </tr>
 
-  
-  
-  <tr>
-    <td>{{acc_ride.id}}</td>
-    <td>{{acc_ride.username}}</td>
-    <td>{{acc_ride.email}}</td>
-    <td>{{acc_ride.contact}}</td>
-    <td>{{acc_ride.Addhar}}</td>
-    <td>{{acc_ride.address}}</td>
+<div class="container" style="margin-top: 90px;">
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="card card-margin">
+              <div class="card-body pt-0">
+                  <div class="widget-49">
+                      <div class="widget-49-title-wrapper">
+                          <div class="widget-49-date-primary">
+                              <span class="widget-49-date-day">{{acc_ride.accepted_booking_id}}</span>
+                              <span class="widget-49-date-month">Number</span>
+                          </div>
+                          <div class="widget-49-meeting-info">
+                              <span class="widget-49-pro-title">{{am_det.ambulance_plate}}</span>
+                              <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
+                          </div>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <th>Driver</th>
+                          <th>Doctor</th>
+                          <th>Cleaner</th>
+                          <th>Drop Location</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{am_det.driver}}</td>
+                            <td>{{am_det.doctor}}</td>
+                            <td>{{am_det.cleaner}}</td>
+                            <td>{{acc_ride.address}}</td>
+                          </tr>
+                        </tbody>
 
-  </tr>
-
-  
-
-</table>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      
+  </div>
+  </div>
 
 {% else %}
 <div style="margin-top: 37px;" class="cont">
@@ -45,6 +61,12 @@
 </div>
 
 {% endif %}
+
+
+
+
+
+
 
 
 {%endblock%}
