@@ -199,6 +199,7 @@ class Accepted_rides(models.Model):
     accepted_by = models.CharField(max_length=50)
     accepted_at = models.DateTimeField(auto_now_add=True)
     accepted_booking_id = models.IntegerField()
+    ambulance_plate = models.CharField(max_length=15)
     username = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     contact = models.IntegerField()

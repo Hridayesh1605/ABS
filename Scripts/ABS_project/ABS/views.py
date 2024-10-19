@@ -498,10 +498,18 @@ def message_after_book(request):
         # print(b_id)
 
     if Accepted_rides.objects.filter(username=user.username).exists():
+
+
         
     
         status = Accepted_rides.objects.get(id=b_id)
-        context={'acc_ride':status}
+
+        # book_table = Book.objects.get(id=status.accepted_booking_id)
+        
+        ambulance_det = Ambulance.objects.filter(ambulance_plate=status.ambulance_plate)
+        # print(ambulance_plate_no.query)
+        # print(ambulance_plate_no[0].ambulance_plate,"plate no")
+        context={'acc_ride':status,'am_det':ambulance_det[0]}
         return render(request,'message_after_book.html',context)
     else:
         return render(request,'message_after_book.html')
@@ -546,6 +554,7 @@ def accept_ride(request,id4):
     ride = Book.objects.get(id=id4)
     e=Accepted_rides()
     e.accepted_booking_id=ride.id
+    e.ambulance_plate=ride.ambulance_plate
     e.accepted_by=user.f_name
     e.username = ride.username
     e.email = ride.email
