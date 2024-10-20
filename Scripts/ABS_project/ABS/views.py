@@ -606,7 +606,28 @@ def finish_ride(request,id5):
     
     
     ride.delete()
-    return redirect('/staff_home')
+    return redirect('/checkout')
+
+def checkout(request,id6):
+    uid1 = request.session.get('uid')
+    staff = App_User.objects.get(id=uid1)
+    ride = Accepted_rides.objects.get(id=id6)
+    amb_name=Ambulance.objects.filter(ambulance_plate=ride.ambulance_plate)
+
+    print(amb_name[0].ambulance_name)
+
+    car_name = amb_name[0].ambulance_name
+
+    if car_name == "Basic Life Support":
+        car_price = 4000
+    elif car_name == "Advanced Life Support (ALS) Ambulances":
+        car_price = 6000
+    elif car_name == "Intensive Care Unit (ICU) Ambulance":
+        car_price = 10000
+
+    
+
+    return render(request,'checkout.html')
 
     
 
