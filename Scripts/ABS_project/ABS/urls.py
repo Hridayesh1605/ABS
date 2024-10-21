@@ -46,7 +46,10 @@ urlpatterns = [
     path('message_after_book',v.message_after_book),
     path('delete_rides/<int:id3>',v.delete_rides),
     path('accept_ride/<int:id4>',v.accept_ride),
-    path('finish_ride/<int:id5>',v.finish_ride)
+    path('finish_ride/<int:id5>',v.finish_ride),
+    path('checkout/<int:id6>',v.checkout),
+    path('make-bill/', v.make_bill, name='make_bill'),
+    path('bill-success/<int:bill_id>/', v.bill_success, name='bill_success'),
     
     
 ]

@@ -1,0 +1,29 @@
+.head{
+    text-align: center;
+}
+
+.cont{
+    display: flex;
+    flex-direction: column;
+    background-color: wheat;
+    border: 1px solid black;
+    padding: 10px 30px 30px 30px;
+
+}
+
+.main-cont{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.tool-dropdown{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+
+button{
+    margin-top: 10px !important;
+}

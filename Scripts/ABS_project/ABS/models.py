@@ -225,3 +225,25 @@ class Finished_rides(models.Model):
 
     class Meta:
         db_table = 'Finished_rides'
+
+class Tool(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.name
+
+
+class Bill(models.Model):
+    username = models.CharField(max_length=50)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"Bill #{self.id} - ${self.total_price}"
+
+class BillItem(models.Model):
+    bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='items')
+    tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.tool.name} - Bill #{self.bill.id}"
