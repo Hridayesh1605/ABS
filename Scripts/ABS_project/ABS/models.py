@@ -235,6 +235,7 @@ class Tool(models.Model):
 
 
 class Bill(models.Model):
+    ride_id = models.IntegerField()
     username = models.CharField(max_length=50)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
 
