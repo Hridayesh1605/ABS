@@ -110,7 +110,9 @@
   <form id="bill-form" method="POST" action="{% url 'make_bill' %}">
     {% csrf_token %}
     <input type="text" value="{{username}}" name="username" id="username">
+    <input type="hidden" value="{{ ride_id }}" name="ride_id" id="ride-id">
     <input type="hidden" id="tools-data" name="tools_data">
+    
     <button type="button" name="make_bill" class="btn btn-primary" id="make-bill-btn" onclick="submitBillData()">Make Bill</button>
 
     

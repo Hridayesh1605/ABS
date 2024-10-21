@@ -665,6 +665,7 @@ def checkout(request,id6):
 def make_bill(request):
     if request.method == 'POST':
         username = request.POST['username']
+        ride_id = request.POST['ride_id']
         tools_data = json.loads(request.POST['tools_data'])
 
         print(tools_data)
@@ -673,7 +674,7 @@ def make_bill(request):
         total_price = sum(tool['price'] for tool in tools_data)
 
         # Create the bill and its items.
-        bill = Bill.objects.create(username=username,total_price=total_price)
+        bill = Bill.objects.create(ride_id=ride_id,username=username,total_price=total_price)
         for tool in tools_data[1:]:
             tool_obj = Tool.objects.get(name=tool['name'])  # Fetch tool by name.
             BillItem.objects.create(bill=bill, tool=tool_obj)
