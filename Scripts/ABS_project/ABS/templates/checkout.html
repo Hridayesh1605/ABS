@@ -1,5 +1,6 @@
 {%load static%}
 <link rel="stylesheet" href="{%static 'css/bmin.css'%}">
+<link rel="stylesheet" href="{%static 'css/checkout.css'%}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
   integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
   crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,7 +19,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="staff_home">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/staff_home">Home <span class="sr-only">(current)</span></a>
       </li>
 
     </ul>
@@ -27,9 +28,93 @@
 
 </nav>
 
+<div class="main-cont">
 
-<div>
-    <h1>
-        Checkout Page
-    </h1>
+
+
+<h1 class="head">
+  Invoice Page
+
+
+</h1>
+<div class="cont">
+  
+  
+
+  
+  
+  <script>
+    function addDropdown() {
+            const formContainer = document.getElementById('form-container');
+            const newForm = formContainer.firstElementChild.cloneNode(true);
+            formContainer.appendChild(newForm);
+        }
+
+        // Disable adding more dropdowns and show the "Make Bill" button.
+        
+
+        // Extract the tool data from the <ul> tag and submit it via a hidden form.
+        function submitBillData() {
+            const tools = [];
+            const toolList = document.querySelectorAll('.selected-tools ul li');
+            toolList.forEach(item => {
+                const [name, price] = item.textContent.split(' - ');
+                tools.push({ name: name.trim(), price: parseFloat(price) });
+            });
+
+            // Set the tools data as JSON in the hidden input field.
+            document.getElementById('tools-data').value = JSON.stringify(tools);
+            document.getElementById('bill-form').submit();
+          }
+  </script>
+  
+
+  <h3 style="text-align: center;">Select Tools</h3>
+  <form method="POST">
+    {% csrf_token %}
+    <div id="form-container">
+      {% for form in forms %}
+      <div class="dropdown-container">
+        {{ form.tool }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="addDropdown()" id="add-dropdown-btn">Add Another Tool</button>
+
+    <button type="submit" name="calculate" class="btn btn-primary">Calculate Total</button>
+
+    
+
+  </form>
+
+  <div class="selected-tools">
+    <h3>Selected Tools:</h3>
+    <ul>
+      <li>{{car_name}} - {{car_price}}</li>
+      
+      
+      {% for tool in selected_tools %}
+      <li>{{ tool.name }} - {{ tool.price }}Rs</li>
+      {% endfor %}
+      
+    </ul>
+    
+
+  </div>
+
+  <div class="total-price">
+    <p>Total Price: {{ total_price }}Rs</p>
+  </div>
+
+  <form id="bill-form" method="POST" action="{% url 'make_bill' %}">
+    {% csrf_token %}
+    <input type="text" value="{{username}}" name="username" id="username">
+    <input type="hidden" id="tools-data" name="tools_data">
+    <button type="button" name="make_bill" class="btn btn-primary" id="make-bill-btn" onclick="submitBillData()">Make Bill</button>
+
+    
+</form>
+
+</div>
 </div>

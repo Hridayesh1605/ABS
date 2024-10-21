@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect
 from django.views.generic import FormView,CreateView,UpdateView
-from .models import UserForm,App_User,ExtraUserDetForm,ExtraUserDet,Image,ImageForm,Designation,AmbulanceForm,BookForm,Book,Ambulance,Accepted_rides,Finished_rides
+from .models import UserForm,App_User,ExtraUserDetForm,ExtraUserDet,Image,ImageForm,Designation,AmbulanceForm,BookForm,Book,Ambulance,Accepted_rides,Finished_rides,Tool,Bill,BillItem
+from .forms import ToolForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+import json
 # from django.contrib.auth.models import User
 
 # Create your views here.
@@ -606,7 +608,7 @@ def finish_ride(request,id5):
     
     
     ride.delete()
-    return redirect('/checkout')
+    return redirect('/staff_home')
 
 def checkout(request,id6):
     uid1 = request.session.get('uid')
@@ -625,9 +627,65 @@ def checkout(request,id6):
     elif car_name == "Intensive Care Unit (ICU) Ambulance":
         car_price = 10000
 
+
+
+    selected_tools = []
+    total_price = 0
+
+    if request.method == 'POST' and 'calculate' in request.POST:
+        tool_ids = request.POST.getlist('tool')
+        tools = Tool.objects.filter(id__in=tool_ids)
+        selected_tools = list(tools)
+        total_price = sum(tool.price for tool in tools)+car_price
+        form_count = len(selected_tools) + 1
+    else:
+        form_count = 1
+
+    forms = [ToolForm() for _ in range(form_count)]
+
+    context = {
+        'forms': forms,
+        'total_price': total_price,
+        'selected_tools': selected_tools,
+        "car_name":car_name,
+        "car_price":car_price,
+        "username":ride.username,
+        "ride_id":id6
+    }
     
 
-    return render(request,'checkout.html')
+
+    return render(request, 'checkout.html', context)
+
+    
+
+    # return render(request,'checkout.html',{"car_name":car_name,"car_price":car_price})
+
+
+def make_bill(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        tools_data = json.loads(request.POST['tools_data'])
+
+        print(tools_data)
+
+        
+        total_price = sum(tool['price'] for tool in tools_data)
+
+        # Create the bill and its items.
+        bill = Bill.objects.create(username=username,total_price=total_price)
+        for tool in tools_data[1:]:
+            tool_obj = Tool.objects.get(name=tool['name'])  # Fetch tool by name.
+            BillItem.objects.create(bill=bill, tool=tool_obj)
+            # print(tool['name'])
+
+        return redirect('bill_success', bill_id=bill.id)
+        # return redirect('/staff_home')
+
+def bill_success(request, bill_id):
+    bill = Bill.objects.get(id=bill_id)
+    return render(request, 'bill_success.html', {'bill': bill})
+
 
     
 
